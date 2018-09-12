@@ -1,14 +1,14 @@
-/* 
+/*
     ## Handler
 
     处理数据模板。
-    
+
     * Handler.gen( template, name?, context? )
 
         入口方法。
 
     * Data Template Definition, DTD
-        
+
         处理数据模板定义。
 
         * Handler.array( options )
@@ -18,7 +18,7 @@
         * Handler.string( options )
         * Handler.function( options )
         * Handler.regexp( options )
-        
+
         处理路径（相对和绝对）。
 
         * Handler.getValueByKeyPath( key, options )
@@ -49,7 +49,7 @@ var Handler = {
 
     Handle.gen(template, name, options)
     context
-        currentContext, templateCurrentContext, 
+        currentContext, templateCurrentContext,
         path, templatePath
         root, templateRoot
 */
@@ -328,7 +328,7 @@ Handler.extend({
                 phed = Handler.placeholder(ph, options.context.currentContext, options.context.templateCurrentContext, options)
 
                 // 只有一个占位符，并且没有其他字符
-                if (placeholders.length === 1 && ph === result && typeof phed !== typeof result) { // 
+                if (placeholders.length === 1 && ph === result && typeof phed !== typeof result) { //
                     result = phed
                     break
 
@@ -412,7 +412,8 @@ Handler.extend({
             // console.error(error)
             // if (error instanceof ReferenceError) params = parts[2].split(/,\s*/);
             // else throw error
-            params = parts[2].split(/,\s*/)
+            // 临时处理小程序不认eval的bug
+            params = parts[2] && parts[2].split(/,\s*/) || []
         }
 
         // 占位符优先引用数据模板中的属性
